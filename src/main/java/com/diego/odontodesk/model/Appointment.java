@@ -23,7 +23,7 @@ public class Appointment {
     private Long id;
 
     @ManyToOne(optional = false) // Muitas consultas pertencem a um paciente
-    @JoinColumn(name = "patiend_id")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne(optional = false) // Muitas consultas pertencem a um dentista
