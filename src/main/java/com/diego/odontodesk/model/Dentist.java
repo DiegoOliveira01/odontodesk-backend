@@ -26,7 +26,7 @@ public class Dentist {
     @Column(nullable = false, unique = true)
     private String cro; // Registro do dentista
 
-    private String speciality;
+    private String specialty;
 
     private String phone;
 

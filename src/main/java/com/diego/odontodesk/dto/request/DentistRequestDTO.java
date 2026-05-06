@@ -13,7 +13,7 @@ public class DentistRequestDTO {
     @NotBlank(message = "CRO é obrigatorio")
     private String cro;
 
-    private String speciality;
+    private String specialty;
 
     private String phone;
 
