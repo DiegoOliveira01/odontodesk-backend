@@ -20,7 +20,7 @@ public class ProcedureService {
     private final ProcedureRepository procedureRepository;
 
     @Transactional(readOnly = true)
-    public List<ProcedureResponseDTO> findall(){
+    public List<ProcedureResponseDTO> findAll(){
         return procedureRepository.findAll()
                 .stream()
                 .map(this::toResponseDTO)
@@ -32,6 +32,14 @@ public class ProcedureService {
         Procedure procedure = procedureRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Procedimento", id));
         return toResponseDTO(procedure);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProcedureResponseDTO> findByName(String name) {
+        return procedureRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(this::toResponseDTO)
+                .toList();
     }
 
     @Transactional
