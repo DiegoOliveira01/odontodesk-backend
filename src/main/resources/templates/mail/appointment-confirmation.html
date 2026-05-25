@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #2563eb;
+            color: white;
+            padding: 32px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .body {
+            padding: 32px;
+            color: #333333;
+        }
+        .body p {
+            line-height: 1.6;
+        }
+        .info-box {
+            background-color: #f0f4ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+        .info-box p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+        .info-box strong {
+            color: #2563eb;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <h1>🦷 OdontoDesk</h1>
+        <p>Consulta Agendada com Sucesso</p>
+    </div>
+
+    <div class="body">
+        <p>Olá, <strong th:text="${patientName}">Paciente</strong>!</p>
+        <p>Sua consulta foi agendada com sucesso. Confira os detalhes abaixo:</p>
+
+        <div class="info-box">
+            <p><strong>Dentista:</strong>
+                <span th:text="${dentistName}">Dr. Nome</span></p>
+            <p><strong>Data:</strong>
+                <span th:text="${date}">01/01/2025</span></p>
+            <p><strong>Horário:</strong>
+                <span th:text="${time}">14:00</span></p>
+            <p><strong>Duração:</strong>
+                <span th:text="${duration}">30</span> minutos</p>
+            <!-- Só exibe procedimentos se houver -->
+            <p th:if="${procedures != null and !#lists.isEmpty(procedures)}">
+                <strong>Procedimentos:</strong>
+                <span th:text="${procedures}">Limpeza, Consulta</span>
+            </p>
+            <p th:if="${notes != null and !#strings.isEmpty(notes)}">
+                <strong>Observações:</strong>
+                <span th:text="${notes}">-</span>
+            </p>
+        </div>
+
+        <p>Caso precise cancelar ou remarcar, entre em contato com nossa clínica.</p>
+        <p>Até logo! 😊</p>
+    </div>
+
+    <div class="footer">
+        <p>Este é um e-mail automático. Por favor, não responda.</p>
+        <p>© 2025 OdontoDesk — Sistema de Gestão Odontológica</p>
+    </div>
+
+</div>
+</body>
+</html>

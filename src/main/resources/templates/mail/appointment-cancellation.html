@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #dc2626;
+            color: white;
+            padding: 32px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .body {
+            padding: 32px;
+            color: #333333;
+        }
+        .body p {
+            line-height: 1.6;
+        }
+        .info-box {
+            background-color: #fff0f0;
+            border-left: 4px solid #dc2626;
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+        .info-box p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+        .info-box strong {
+            color: #dc2626;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <h1>🦷 OdontoDesk</h1>
+        <p>Consulta Cancelada</p>
+    </div>
+
+    <div class="body">
+        <p>Olá, <strong th:text="${patientName}">Paciente</strong>!</p>
+        <p>Infelizmente sua consulta foi cancelada. Veja os detalhes:</p>
+
+        <div class="info-box">
+            <p><strong>Dentista:</strong>
+                <span th:text="${dentistName}">Dr. Nome</span></p>
+            <p><strong>Data:</strong>
+                <span th:text="${date}">01/01/2025</span></p>
+            <p><strong>Horário:</strong>
+                <span th:text="${time}">14:00</span></p>
+        </div>
+
+        <p>Para reagendar sua consulta, entre em contato com nossa clínica.</p>
+        <p>Pedimos desculpas pelo inconveniente.</p>
+    </div>
+
+    <div class="footer">
+        <p>Este é um e-mail automático. Por favor, não responda.</p>
+        <p>© 2025 OdontoDesk — Sistema de Gestão Odontológica</p>
+    </div>
+
+</div>
+</body>
+</html>
