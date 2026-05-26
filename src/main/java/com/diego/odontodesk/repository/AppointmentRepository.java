@@ -26,7 +26,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByDentistIdAndStatus(Long dentistId, AppointmentStatus status);
 
     // Busca consultas de um dentista em um intervalo de datas
-    List<Appointment> findByDentistIdAndScheduleAtBetween(
+    List<Appointment> findByDentistIdAndScheduledAtBetween(
             Long dentistId,
             LocalDateTime start,
             LocalDateTime end
@@ -34,15 +34,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     // Query de conflito de horário, Importante!
 
-    @Query("""
-        SELECT COUNT(a) > 0 FROM Appointment a
-        WHERE a.dentist.id = :dentistId
-        AND a.status NOT IN ('CANCELADA', CONCLUIDA)
-        AND a.scheduleAt < :newEnd
-        AND FUNCTION('timestampadd', SECOND, a.durationMinutes * 60, a.scheduleAt) > :newStart
-        AND (:excludeId IS NULL OR a.id <> :excludeId)
-    """)
-
+    @Query(value = """
+    SELECT COUNT(*) > 0 FROM appointments a
+    WHERE a.dentist_id = :dentistId
+    AND a.status NOT IN ('CANCELADA', 'CONCLUIDA')
+    AND a.scheduled_at < :newEnd
+    AND (a.scheduled_at + (a.duration_minutes * INTERVAL '1 minute')) > :newStart
+    AND (:excludeId IS NULL OR a.id <> :excludeId)
+""", nativeQuery = true)
     boolean hasScheduleConflict(
             @Param("dentistId") Long dentistId,
             @Param("newStart") LocalDateTime newStart,

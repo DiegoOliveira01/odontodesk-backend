@@ -71,7 +71,7 @@ public class AppointmentService {
             LocalDateTime start,
             LocalDateTime end){
         return appointmentRepository
-                .findByDentistIdAndScheduleAtBetween(dentistId, start, end)
+                .findByDentistIdAndScheduledAtBetween(dentistId, start, end)
                 .stream()
                 .map(this::toResponseDTO)
                 .toList();

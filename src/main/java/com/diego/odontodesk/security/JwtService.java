@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,11 +34,12 @@ public class JwtService {
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails){
 
         return Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername()) // email do usuario
-                .setIssuedAt(new Date())               // quando foi gerado
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .claims(extraClaims)
+                .subject(userDetails.getUsername())
+                .issuedAt(new Date())
+                .expiration(new Date(
+                        System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -68,16 +70,16 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+        return Jwts.parser()
+                .verifyWith(getSigningKey())                  // mudou: setSigningKey → verifyWith
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)                     // mudou: parseClaimsJws → parseSignedClaims
+                .getPayload();
     }
 
 
     // Converte a secret string em uma chave criptográfica
-    private Key getSigningKey() {
+    private SecretKey getSigningKey() {
         byte[] keyBytes = java.util.Base64.getDecoder().decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
