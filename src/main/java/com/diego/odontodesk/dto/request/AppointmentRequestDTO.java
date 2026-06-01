@@ -12,17 +12,17 @@ import java.util.List;
 @Data
 public class AppointmentRequestDTO {
 
-    @NotNull(message = "ID do paciente é obrigatorio")
+    @NotNull(message = "ID do paciente é obrigatório")
     private Long patientId;
 
-    @NotNull(message = "ID do dentista é obrigatorio")
+    @NotNull(message = "ID do dentista é obrigatório")
     private Long dentistId;
 
     @NotNull(message = "Data e hora são obrigatórios")
     @Future(message = "A consulta deve ser agendada para uma data futura")
     private LocalDateTime scheduledAt;
 
-    @NotNull(message = "Duração é obrigatorio")
+    @NotNull(message = "Duração é obrigatório")
     @Min(value = 15, message = "Duração mínima é 15 minutos")
     private Integer durationMinutes;
 

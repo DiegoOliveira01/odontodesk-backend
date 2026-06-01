@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class DentistRequestDTO {
 
-    @NotBlank(message = "Nome é obrigatorio")
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
 
-    @NotBlank(message = "CRO é obrigatorio")
+    @NotBlank(message = "CRO é obrigatório")
     private String cro;
 
     private String specialty;
