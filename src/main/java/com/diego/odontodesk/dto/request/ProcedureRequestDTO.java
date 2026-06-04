@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 public class ProcedureRequestDTO {
 
-    @NotBlank(message = "Nome é obrigatorio")
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
 
     private String description;
