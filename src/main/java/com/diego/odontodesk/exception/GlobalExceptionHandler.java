@@ -2,6 +2,7 @@ package com.diego.odontodesk.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -95,6 +96,21 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+    }
+
+    // Erro nas credenciais de login
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponseDTO> handleBadCredentials(
+            BadCredentialsException ex) {
+
+        ErrorResponseDTO response = ErrorResponseDTO.builder()
+                .status(HttpStatus.UNAUTHORIZED.value())  // 401, não 403
+                .error("Credenciais inválidas")
+                .message("Email ou senha incorretos")
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
     // Qualquer outra exception não prevista — sempre tenha esse fallback
